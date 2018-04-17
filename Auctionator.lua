@@ -1408,6 +1408,30 @@ end
 
 -----------------------------------------
 
+function Atr_SetNumAuctions (n)
+  Auctionator.Debug.Message( 'Atr_SetNumAuctions', n )
+
+  return Atr_Batch_NumAuctions:SetText(n);
+end
+
+-----------------------------------------
+
+function Atr_GetNumAuctions ()
+  Auctionator.Debug.Message( 'Atr_GetNumAuctions' )
+
+  return Atr_Batch_NumAuctions:GetNumber();
+end
+
+-----------------------------------------
+
+function Atr_GetStackSize ()
+  Auctionator.Debug.Message( 'Atr_GetStackSize' )
+
+  return Atr_Batch_Stacksize:GetNumber();
+end
+
+-----------------------------------------
+
 function Atr_SelectPane (whichTab)
   Auctionator.Debug.Message( 'Atr_SelectPane', whichTab )
 
@@ -2559,6 +2583,34 @@ function Atr_NumAuctionsChangedFunc (x)
   gSellPane.UINeedsUpdate = true;
 end
 
+
+-----------------------------------------
+
+function Atr_MaxNumAuctions_OnClick()
+  Auctionator.Debug.Message( 'Atr_MaxNumAuctions_OnClick' )
+
+  local maxAuctions = 0;
+  
+  if (gCurrentPane.totalItems > 0) then
+    maxAuctions = math.floor(gCurrentPane.totalItems / Atr_GetStackSize());
+  end
+
+  Atr_SetNumAuctions(maxAuctions);
+end
+
+-----------------------------------------
+
+function Atr_MaxNumStacks_OnClick()
+  Auctionator.Debug.Message( 'Atr_MaxNumStacks_OnClick' )
+  
+  local maxStacks = 0;
+
+  if (gCurrentPane.totalItems > 0) then
+    maxStacks = math.floor(gCurrentPane.totalItems / Atr_GetNumAuctions());
+  end
+
+  Atr_SetStackSize(maxStacks);
+end
 
 -----------------------------------------
 
